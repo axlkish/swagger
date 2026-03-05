@@ -139,7 +139,6 @@ paths:
         '500':
           description: Internal Server Error
 
-          paths:
   /api/storage/docs/{domain}/{id}/{doc}:
     get:
       tags:
