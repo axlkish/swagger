@@ -1,0 +1,140 @@
+openapi: 3.0.0
+info:
+  title: Backend API
+  version: 1.0.0
+paths:
+  /api/v1/auth/register:
+    post:
+      tags:
+        - auth
+      summary: register user
+      parameters:
+        - in: header
+          name: frontend-api-key
+      requestBody:
+        description: created user
+        content:
+          application/json:
+            schema:
+              type: string
+              format: json
+            example:
+              route: /api/v1/auth/register
+              action: user-register-email
+              params:
+                username: test
+                email: test@mail.ru
+                password: '1Bo8UwIeKICH3tT7OklDmQ=='
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+                format: json
+              examples:
+                SuccessRespone:
+                  value:
+                    method: POST
+                    route: /api/v1/auth/register
+                    action: user-register-email
+                    code: FM1
+                    message: user register email success
+                ValidateFailRespone:
+                  value:
+                    method: POST
+                    route: /api/v1/auth/register
+                    action: user-register-email
+                    code: SM3
+                    message: Value has already been taken (and 1 more error)
+                ErrorRespone:
+                  value:
+                    method: POST
+                    route: /api/v1/auth/register
+                    action: user-register-email
+                    code: SM2
+                    message: error
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+
+  /api/v1/auth/login:
+    post:
+      tags:
+        - auth
+      summary: login user
+      parameters:
+        - in: header
+          name: frontend-api-key
+      requestBody:
+        description: login user
+        content:
+          application/json:
+            schema:
+              type: string
+              format: json
+            example:
+              route: /api/v1/auth/login
+              action: user-login
+              params:
+                username: test
+                password: '1Bo8UwIeKICH3tT7OklDmQ=='
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+                format: json
+              examples:
+                SuccessRespone:
+                  value:
+                    method: POST
+                    route: /api/v1/auth/login
+                    action: user-login
+                    code: FM2
+                    cache: false
+                    data:
+                      user: {}
+                UserInvalidRespone:
+                  value:
+                    method: POST
+                    route: /api/v1/auth/login
+                    action: user-login
+                    code: FM5
+                    message: invalid user credentials
+                UserNotActiveRespone:
+                  value:
+                    method: POST
+                    route: /api/v1/auth/login
+                    action: user-login
+                    code: FM3
+                    message: user is not active
+                UserBannedRespone:
+                  value:
+                    method: POST
+                    route: /api/v1/auth/login
+                    action: user-login
+                    code: FM4
+                    message: user is banned
+                ValidateFailRespone:
+                  value:
+                    method: POST
+                    route: /api/v1/auth/login
+                    action: user-login
+                    code: SM3
+                    message: Field required
+                ErrorRespone:
+                  value:
+                    method: POST
+                    route: /api/v1/auth/login
+                    action: user-login
+                    code: SM2
+                    message: error
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
