@@ -1,0 +1,168 @@
+openapi: 3.0.3
+info:
+  title: Storage
+  version: 1.1.0
+
+paths:
+  /api/storage/docs/{domain}/{id}/{doc}:
+    get:
+      tags:
+        - storage
+      summary: storage doc get
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: domain
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: doc
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                type: string
+                format: json
+              examples:
+                ValidationErrorResponse:
+                  value:
+                    status: 'error'
+                    message: 'validation error'
+                    errors:
+                      - value: 'domain'
+                        message: 'This value should not be blank.'
+                      - value: 'id'
+                        message: 'This value should not be blank.'
+                      - value: 'id'
+                        message: 'This is not a valid UUID.'
+                      - value: 'doc'
+                        message: 'This value should not be blank.'
+                ErrorResponse:
+                  value:
+                    status: 'error'
+                    message: 'get storage document fail'
+                    payload:
+                      domain: 'legal-entity'
+                      id: 'cec1520a-7e68-11ee-a1ea-5b0de3c1618c'
+                      doc: 'charter-<id>.pdf'
+                ErrorLegalEntityNotFoundResponse:
+                  value:
+                    status: 'error'
+                    message: 'legal entity not found'
+                    payload:
+                      domain: 'legal-entity'
+                      id: 'cec1520a-7e68-11ee-a1ea-5b0de3c1618c'
+                      doc: 'charter-<id>.pdf'
+                ErrorEmployeeNotFoundResponse:
+                  value:
+                    status: 'error'
+                    message: 'employee not found'
+                    payload:
+                      domain: 'legal-entity'
+                      id: 'cec1520a-7e68-11ee-a1ea-5b0de3c1618c'
+                      doc: 'charter-<id>.pdf'
+                ErrorVehicleNotFoundResponse:
+                  value:
+                    status: 'error'
+                    message: 'vehicle not found'
+                    payload:
+                      domain: 'vehicle'
+                      id: 'cec1520a-7e68-11ee-a1ea-5b0de3c1618c'
+                      doc: 'sts-<id>.pdf'
+                ErrorOrderResponseTripNotFoundResponse:
+                  value:
+                    status: 'error'
+                    message: 'order response trip not found'
+                    payload:
+                      domain: 'order-response-trip'
+                      id: 'cec1520a-7e68-11ee-a1ea-5b0de3c1618c'
+                      doc: 'waybill-<id>.pdf'
+                ErrorStorageDocNotFoundResponse:
+                  value:
+                    status: 'error'
+                    message: 'storage doc not found'
+                    payload:
+                      domain: 'legal-entity'
+                      id: 'cec1520a-7e68-11ee-a1ea-5b0de3c1618c'
+                      doc: 'charter-<id>.pdf'
+        '400':
+          description: 'Bad Request'
+          content:
+            application/json:
+              schema:
+                type: string
+                format: json
+              examples:
+                BadRequestResponse:
+                  value:
+                    message: 'Bad Request'
+        '401':
+          description: 'Unauthorized'
+          content:
+            application/json:
+              schema:
+                type: string
+                format: json
+              examples:
+                UnauthorizedResponse:
+                  value:
+                    message: 'Expired JWT Token'
+        '403':
+          description: 'Forbidden'
+          content:
+            application/json:
+              schema:
+                type: string
+                format: json
+              examples:
+                ForbiddenResponse:
+                  value:
+                    message: 'Forbidden'
+        '404':
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                type: string
+                format: json
+              examples:
+                NotFoundResponse:
+                  value:
+                    message: 'Method Not Found'
+        '405':
+          description: 'Not Allowed'
+          content:
+            application/json:
+              schema:
+                type: string
+                format: json
+              examples:
+                NotAllowedResponse:
+                  value:
+                    message: 'Method Not Allowed'
+        '500':
+          description: 'Internal Server Error'
+          content:
+            application/json:
+              schema:
+                type: string
+                format: json
+              examples:
+                InternalServerErrorResponse:
+                  value:
+                    message: 'Internal server error'
